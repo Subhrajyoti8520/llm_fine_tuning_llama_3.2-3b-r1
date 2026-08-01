@@ -46,30 +46,12 @@ To run the notebook on a local GPU, Kaggle, or Google Colab, install the require
 ---
 ## 💻 Pipeline Overview
 
-```text
-                                            ┌────────────────────────────────┐
-                                            │  unsloth/Llama-3.2-3B-Instruct │
-                                            └───────────────┬────────────────┘
-                                                            │
-                                                            ▼
-                                            ┌────────────────────────────────┐
-                                            │   4-bit QLoRA Adapter (r=16)   │
-                                            └───────────────┬────────────────┘
-                                                            │
-                                                            ▼
-                                            ┌────────────────────────────────┐
-                                            │ ServiceNow-AI/R1-Distill-SFT   │ (Fine-Tuning via SFTTrainer)
-                                            └───────────────┬────────────────┘
-                                                            │
-                                                            ▼
-                                            ┌────────────────────────────────┐
-                                            │    GGUF Model Export           │
-                                            └───────────────┬────────────────┘
-                                                            │
-                                                            ▼
-                                            ┌────────────────────────────────┐
-                                            │   Local Serving via Ollama     │
-                                            └────────────────────────────────┘
+```mermaid
+flowchart TD
+    A["unsloth/Llama-3.2-3B-Instruct"] --> B["4-bit QLoRA Adapter (r=16)"]
+    B --> C["ServiceNow-AI/R1-Distill-SFT (SFTTrainer)"]
+    C --> D["GGUF Model Export"]
+    D --> E["Local Serving via Ollama"]
 ```
 ---
 
